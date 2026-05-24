@@ -9,6 +9,7 @@ export type ProjectOptions = {
   name: string;
   type: ProjectType;
   targetDir: string;
+  supabase: boolean;
 };
 
 function isValidPackageName(name: string): boolean {
@@ -37,6 +38,7 @@ function validateProjectName(name: string): string | undefined {
 export async function resolveProjectOptions(
   nameArg?: string,
   typeArg?: string,
+  supabaseArg?: boolean,
 ): Promise<ProjectOptions | null> {
   p.intro(pc.bgCyan(pc.black(" create-supafast-template ")));
 
@@ -77,12 +79,12 @@ export async function resolveProjectOptions(
         {
           value: "fullstack" as const,
           label: "Fullstack",
-          hint: "Next.js + shadcn + Supabase",
+          hint: "Next.js + shadcn/ui",
         },
         {
           value: "landing" as const,
           label: "Landing page",
-          hint: "Astro + Tailwind",
+          hint: "Astro + Tailwind CSS",
         },
       ],
     });
@@ -95,11 +97,28 @@ export async function resolveProjectOptions(
     type = response;
   }
 
+  let supabase = supabaseArg;
+
+  if (supabase === undefined) {
+    const response = await p.confirm({
+      message: "Initialize Supabase database?",
+      initialValue: type === "fullstack",
+    });
+
+    if (p.isCancel(response)) {
+      p.cancel("Operation cancelled.");
+      return null;
+    }
+
+    supabase = response;
+  }
+
   const targetDir = path.resolve(process.cwd(), name);
 
   return {
     name,
     type,
     targetDir,
+    supabase,
   };
 }

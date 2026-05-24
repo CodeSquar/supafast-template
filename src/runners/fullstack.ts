@@ -2,13 +2,10 @@ import type { ProjectOptions } from "../prompts.js";
 import { run, runOptional } from "../utils/exec.js";
 import { logger } from "../utils/logger.js";
 import { copyTemplate } from "../utils/copy-template.js";
-import {
-  isDockerAvailable,
-  printDockerHelp,
-} from "../utils/docker.js";
+import { setupSupabase } from "../utils/supabase.js";
 
 export async function runFullstack(options: ProjectOptions): Promise<void> {
-  const { name, targetDir } = options;
+  const { name, targetDir, supabase } = options;
 
   logger.intro(`Creating fullstack project: ${name}`);
 
@@ -48,28 +45,8 @@ export async function runFullstack(options: ProjectOptions): Promise<void> {
     );
   }
 
-  await run("npx", ["supabase", "init"], {
-    cwd: targetDir,
-    label: "Initializing Supabase",
-  });
-
-  const dockerOk = await isDockerAvailable();
-
-  if (dockerOk) {
-    const supabaseStarted = await runOptional(
-      "npx",
-      ["supabase", "start"],
-      {
-        cwd: targetDir,
-        label: "Starting Supabase local stack",
-      },
-    );
-
-    if (!supabaseStarted) {
-      printDockerHelp(name);
-    }
-  } else {
-    printDockerHelp(name);
+  if (supabase) {
+    await setupSupabase(name, targetDir);
   }
 
   await copyTemplate("fullstack", targetDir);
@@ -78,5 +55,8 @@ export async function runFullstack(options: ProjectOptions): Promise<void> {
   logger.success(`Fullstack project "${name}" created successfully!`);
   logger.info(`  cd ${name}`);
   logger.info("  npm run dev");
+  if (supabase) {
+    logger.info("  npx supabase status");
+  }
   logger.blank();
 }

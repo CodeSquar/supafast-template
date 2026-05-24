@@ -18,14 +18,31 @@ async function main(): Promise<void> {
       "--type <type>",
       "Project type: fullstack or landing",
     )
-    .version("0.1.0")
+    .option("--supabase", "Initialize Supabase local database")
+    .option("--no-supabase", "Skip Supabase initialization")
+    .version("0.1.1")
     .parse(process.argv);
 
-  const opts = program.opts<{ type?: string }>();
+  const opts = program.opts<{
+    type?: string;
+    supabase?: boolean;
+    noSupabase?: boolean;
+  }>();
   const projectName = program.args[0];
 
+  let supabase: boolean | undefined;
+  if (opts.noSupabase) {
+    supabase = false;
+  } else if (opts.supabase) {
+    supabase = true;
+  }
+
   try {
-    const options = await resolveProjectOptions(projectName, opts.type);
+    const options = await resolveProjectOptions(
+      projectName,
+      opts.type,
+      supabase,
+    );
 
     if (!options) {
       process.exit(1);

@@ -2,9 +2,10 @@ import type { ProjectOptions } from "../prompts.js";
 import { run } from "../utils/exec.js";
 import { logger } from "../utils/logger.js";
 import { copyTemplate } from "../utils/copy-template.js";
+import { setupSupabase } from "../utils/supabase.js";
 
 export async function runLanding(options: ProjectOptions): Promise<void> {
-  const { name, targetDir } = options;
+  const { name, targetDir, supabase } = options;
 
   logger.intro(`Creating landing page project: ${name}`);
 
@@ -29,11 +30,18 @@ export async function runLanding(options: ProjectOptions): Promise<void> {
     label: "Adding Tailwind CSS",
   });
 
+  if (supabase) {
+    await setupSupabase(name, targetDir);
+  }
+
   await copyTemplate("landing", targetDir);
 
   logger.blank();
   logger.success(`Landing page project "${name}" created successfully!`);
   logger.info(`  cd ${name}`);
   logger.info("  npm run dev");
+  if (supabase) {
+    logger.info("  npx supabase status");
+  }
   logger.blank();
 }

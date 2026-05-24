@@ -1,6 +1,6 @@
 {
   "name": "create-supafast-template",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "CLI to scaffold fullstack (Next.js + shadcn + Supabase) or landing (Astro + Tailwind) projects",
   "author": "lautixon",
   "license": "MIT",
