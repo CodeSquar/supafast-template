@@ -5,6 +5,9 @@ CLI to scaffold projects with zero subcommand prompts:
 - **Fullstack** — Next.js + shadcn/ui + Supabase
 - **Landing page** — Astro + Tailwind CSS
 
+[![npm version](https://img.shields.io/npm/v/create-supafast-template.svg)](https://www.npmjs.com/package/create-supafast-template)
+[![GitHub](https://img.shields.io/github/stars/lauta/create-supafast-template?style=social)](https://github.com/lauta/create-supafast-template)
+
 ## Usage
 
 ```bash

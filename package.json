@@ -2,13 +2,16 @@
   "name": "create-supafast-template",
   "version": "0.1.0",
   "description": "CLI to scaffold fullstack (Next.js + shadcn + Supabase) or landing (Astro + Tailwind) projects",
+  "author": "lautixon",
+  "license": "MIT",
   "type": "module",
   "bin": {
     "create-supafast-template": "./dist/index.js"
   },
   "files": [
     "dist",
-    "templates"
+    "templates",
+    "README.md"
   ],
   "engines": {
     "node": ">=18"
@@ -18,6 +21,18 @@
     "dev": "tsup --watch",
     "prepublishOnly": "npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeSquar/supafast-template"
+  },
+  "bugs": {
+    "url": "https://github.com/CodeSquar/supafast-template/issues"
+  },
+  "homepage": "https://github.com/CodeSquar/supafast-template#readme",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "keywords": [
     "create-app",
     "nextjs",
@@ -25,9 +40,10 @@
     "supabase",
     "shadcn",
     "template",
-    "cli"
+    "cli",
+    "scaffold",
+    "supafast"
   ],
-  "license": "MIT",
   "dependencies": {
     "@clack/prompts": "^0.10.1",
     "commander": "^13.1.0",
