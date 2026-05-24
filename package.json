@@ -1,0 +1,44 @@
+{
+  "name": "create-supafast-template",
+  "version": "0.1.0",
+  "description": "CLI to scaffold fullstack (Next.js + shadcn + Supabase) or landing (Astro + Tailwind) projects",
+  "type": "module",
+  "bin": {
+    "create-supafast-template": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "templates"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "create-app",
+    "nextjs",
+    "astro",
+    "supabase",
+    "shadcn",
+    "template",
+    "cli"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@clack/prompts": "^0.10.1",
+    "commander": "^13.1.0",
+    "execa": "^9.5.2",
+    "fs-extra": "^11.3.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.13.10",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2"
+  }
+}
