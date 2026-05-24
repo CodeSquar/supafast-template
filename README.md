@@ -1,3 +1,5 @@
+![create-supafast-template](docs/e718abde-c461-474a-9f61-d089e42c9ebb.png)
+
 # create-supafast-template
 
 CLI to scaffold projects with zero subcommand prompts:
